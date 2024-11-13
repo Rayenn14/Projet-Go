@@ -1,2 +1,6 @@
 # Projet-Go
-Projet où on refait le projet de Go 
+Projet où on refait le projet de Go avec : 
+STAVROPOULOS Lukas
+BOUZIDI Rayen
+LIN Leo
+GILLENT Mathias
