@@ -1,38 +1,30 @@
 package fr.RyoKaST;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Unit test for simple App.
  */
-public class AppTest 
-    extends TestCase
-{
+public class AppTest {
+
     /**
-     * Create the test case
-     *
-     * @param testName name of the test case
+     * Basic test to ensure the application runs correctly.
      */
-    public AppTest( String testName )
-    {
-        super( testName );
+    @Test
+    void testApp() {
+        assertTrue(true, "This test should always pass!");
     }
 
     /**
-     * @return the suite of tests being tested
+     * Example of a more meaningful test.
      */
-    public static Test suite()
-    {
-        return new TestSuite( AppTest.class );
-    }
-
-    /**
-     * Rigourous Test :-)
-     */
-    public void testApp()
-    {
-        assertTrue( true );
+    @Test
+    void testAddition() {
+        int a = 5;
+        int b = 3;
+        int result = a + b;
+        assertEquals(8, result, "The addition should result in 8");
     }
 }
