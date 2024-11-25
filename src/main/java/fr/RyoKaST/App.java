@@ -55,9 +55,9 @@ public class App
 
                 if(!indeReturn) System.out.println("=" + commandID + "\n");
             } catch (CommandFailedException e) {
-                System.err.println("?"+ commandID + " " + e.getMessage());
+                System.err.println("?"+ commandID + " " + e.getMessage() + "\n");
             } catch (NullPointerException  e) {
-                System.err.println("?"+ commandID + " board not initialized");
+                System.err.println("?"+ commandID + " board not initialized" + "\n");
             }
         }
         scanner.close();
