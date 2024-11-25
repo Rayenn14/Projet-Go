@@ -49,7 +49,6 @@ public class App
                     
                     case "quit":
                         running = false;
-                        System.out.println("=" + commandID);
                         break;
                 }
 

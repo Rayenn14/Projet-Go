@@ -96,7 +96,7 @@ public class Board {
             letters.append(" ").append((char)('A' + i) );
         }
 
-        StringBuilder boardStringBuilder = new StringBuilder(" ");
+        StringBuilder boardStringBuilder = new StringBuilder(letters);
         for(int i = 0; i < board.length; ++i) {
             if(i % boardSize == 0) {
                 boardStringBuilder.append("\n").append(i/boardSize + 1);
@@ -111,7 +111,9 @@ public class Board {
             if(i % boardSize == boardSize -1) {
                 boardStringBuilder.append(" ").append(i/boardSize + 1);
             }
+            
         }
-        System.out.println(letters.toString() + boardStringBuilder.toString() + "\n" + letters.toString() + "\n");   
+        boardStringBuilder.append("\n").append(letters).append("\n");
+        System.out.println(boardStringBuilder.toString());   
     }
 }
