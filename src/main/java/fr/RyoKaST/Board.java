@@ -92,6 +92,11 @@ public class Board {
     public void showBoard() {
         StringBuilder letters = new StringBuilder(" ");
 
+        int maxPad = String.valueOf(boardSize+1).length();
+        
+        for(int pad = maxPad; pad > 1; --pad)
+            letters.append(" ");
+
         for(int i = 0; i < boardSize; i++) {
             letters.append(" ").append((char)('A' + i) );
         }
@@ -99,7 +104,11 @@ public class Board {
         StringBuilder boardStringBuilder = new StringBuilder(letters);
         for(int i = 0; i < board.length; ++i) {
             if(i % boardSize == 0) {
-                boardStringBuilder.append("\n").append(i/boardSize + 1);
+                String nbline = String.valueOf(i/boardSize + 1);
+                boardStringBuilder.append("\n");
+                for(int pad = maxPad - nbline.length(); pad > 0; --pad)
+                    boardStringBuilder.append(" ");
+                boardStringBuilder.append(nbline);
             }
 
             if(board[i] == null) {
