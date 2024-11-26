@@ -1,4 +1,7 @@
-package fr.RyoKaST;
+package fr.RyoKaST.app;
+
+import fr.RyoKaST.board.CommandFailedException;
+import fr.RyoKaST.board.Board;
 
 import java.util.Scanner;
 

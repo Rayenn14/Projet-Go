@@ -1,9 +1,9 @@
-package fr.RyoKaST;
+package fr.RyoKaST.player;
 
 import java.util.Set;
 import java.util.TreeSet;
 
-public class Player {
+public class Player implements IPlayer {
     Set<Integer> pawnList;
     int pawnListSize;
     int boardSize;
@@ -15,6 +15,7 @@ public class Player {
     }
     
 
+    @Override
     public void play(int pos) {
         pawnList.add(pos);
     }

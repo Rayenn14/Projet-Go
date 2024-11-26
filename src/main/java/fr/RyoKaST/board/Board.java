@@ -1,11 +1,12 @@
-package fr.RyoKaST;
+package fr.RyoKaST.board;
 
-import fr.RyoKaST.Pawn.Pawn;
-import fr.RyoKaST.Pawn.PawnType;
+import fr.RyoKaST.player.Player;
+import fr.RyoKaST.pawn.Pawn;
+import fr.RyoKaST.pawn.PawnType;
 import java.util.Random;
 
 
-public class Board {
+public class Board implements IBoard {
     int boardSize;
     Pawn[] board;
     Player white, black;
@@ -32,10 +33,12 @@ public class Board {
         }
     }
 
+    @Override
     public void clearBoard() {
         initialise(boardSize);
     }
 
+    @Override
     public void play(String player, String pos) {
         pos = pos.toUpperCase();
         int x = pos.charAt(0) - 'A'; // lettre vers int table ascii
@@ -67,6 +70,7 @@ public class Board {
         return board[pos] == null;
     }
 
+    @Override
     public String genmove(String player) {
         int x = random.nextInt(boardSize);
         int y = random.nextInt(boardSize);
@@ -89,6 +93,7 @@ public class Board {
         return (char)(x + 'A') + "" + (y + 1);
     }
 
+    @Override
     public void showBoard() {
         StringBuilder letters = new StringBuilder(" ");
 
