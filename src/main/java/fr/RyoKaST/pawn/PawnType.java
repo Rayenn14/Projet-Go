@@ -1,4 +1,4 @@
-package fr.RyoKaST.pawn;
+package fr.RyoKaST.Pawn;
 
 public enum PawnType {
     white,
