@@ -1,8 +1,8 @@
 package fr.RyoKaST.board;
 
 import fr.RyoKaST.player.Player;
-import fr.RyoKaST.pawn.Pawn;
-import fr.RyoKaST.pawn.PawnType;
+import fr.RyoKaST.Pawn.Pawn;
+import fr.RyoKaST.Pawn.PawnType;
 import java.util.Random;
 
 
