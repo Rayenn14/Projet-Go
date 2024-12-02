@@ -30,6 +30,8 @@ public class App
 
             if (tempCommandID < 0) {
                 commandID = "";
+                commandPart = ("0 " + command).split(" ");
+
             } else {
                 commandID = String.valueOf(tempCommandID);
             }
