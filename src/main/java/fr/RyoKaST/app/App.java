@@ -19,8 +19,21 @@ public class App
             String command = scanner.nextLine();
             String[] commandPart = command.split(" ");
             
-            if(commandPart.length < 2) throw new CommandFailedException("Invalid command");
-            int commandID = Integer.parseInt(commandPart[0]);
+            if(commandPart.length < 1) throw new CommandFailedException("Invalid command");
+            String commandID = "0";
+            int tempCommandID = 0;
+            try {
+                tempCommandID = Integer.parseInt(commandPart[0]);
+            } catch (Exception e) {
+                tempCommandID = -1;
+            }
+
+            if (tempCommandID < 0) {
+                commandID = "";
+            } else {
+                commandID = String.valueOf(tempCommandID);
+            }
+            
             boolean indeReturn = false; 
             try {
                 switch (commandPart[1].toLowerCase()) {
