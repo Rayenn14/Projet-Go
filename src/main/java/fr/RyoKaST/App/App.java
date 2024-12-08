@@ -1,6 +1,7 @@
 package fr.RyoKaST.App;
 
 import fr.RyoKaST.Gomoku.Gomoku;
+import fr.RyoKaST.Stable.IJeu;
 import fr.RyoKaST.Gomoku.CommandFailedException;
 
 import java.util.Scanner;
@@ -9,7 +10,7 @@ public class App {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
-        Gomoku game = new Gomoku();
+        IJeu game = new Gomoku(); // Remplacez "Gomoku" par un autre jeu si besoin
 
         while (running) {
             String command = scanner.nextLine();

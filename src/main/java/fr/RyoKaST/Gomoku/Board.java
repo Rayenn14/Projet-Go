@@ -1,7 +1,7 @@
 package fr.RyoKaST.Gomoku;
 
-import fr.RyoKaST.IHM.IBoard;
-import fr.RyoKaST.IHM.PawnType;
+import fr.RyoKaST.Stable.IBoard;
+import fr.RyoKaST.Stable.PawnType;
 
 import java.util.Random;
 

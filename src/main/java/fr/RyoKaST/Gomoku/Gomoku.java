@@ -1,29 +1,35 @@
 package fr.RyoKaST.Gomoku;
 
-import fr.RyoKaST.IHM.IBoard;
+import fr.RyoKaST.Stable.IBoard;
+import fr.RyoKaST.Stable.IJeu;
 
-public class Gomoku {
+public class Gomoku implements IJeu {
     private IBoard board;
 
+    @Override
     public void setBoardSize(String boardSize) {
         board = new Board(boardSize);
     }
 
+    @Override
     public void clearBoard() {
         if (board == null) throw new CommandFailedException("board not initialized");
         board.clearBoard();
     }
 
+    @Override
     public void play(String player, String pos) {
         if (board == null) throw new CommandFailedException("board not initialized");
         board.play(player, pos);
     }
 
+    @Override
     public String genMove(String player) {
         if (board == null) throw new CommandFailedException("board not initialized");
         return board.genmove(player);
     }
 
+    @Override
     public void showBoard() {
         if (board == null) throw new CommandFailedException("board not initialized");
         board.showBoard();

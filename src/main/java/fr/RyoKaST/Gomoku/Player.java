@@ -1,6 +1,6 @@
 package fr.RyoKaST.Gomoku;
 
-import fr.RyoKaST.IHM.IPlayer;
+import fr.RyoKaST.Stable.IPlayer;
 
 import java.util.Set;
 import java.util.TreeSet;

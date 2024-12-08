@@ -1,4 +1,4 @@
-package fr.RyoKaST.IHM;
+package fr.RyoKaST.Stable;
 
 public interface IBoard {
     void clearBoard();

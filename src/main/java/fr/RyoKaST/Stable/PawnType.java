@@ -1,4 +1,4 @@
-package fr.RyoKaST.IHM;
+package fr.RyoKaST.Stable;
 
 public enum PawnType {
     white,
