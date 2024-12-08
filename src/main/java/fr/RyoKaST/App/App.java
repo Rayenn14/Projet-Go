@@ -1,25 +1,21 @@
-package fr.RyoKaST.app;
+package fr.RyoKaST.App;
 
-import fr.RyoKaST.board.CommandFailedException;
-import fr.RyoKaST.board.Board;
+import fr.RyoKaST.Gomoku.Gomoku;
+import fr.RyoKaST.Gomoku.CommandFailedException;
 
 import java.util.Scanner;
 
-
-public class App 
-{
-    public static void main( String[] args )
-    {
+public class App {
+    public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
+        Gomoku game = new Gomoku();
 
-        Board board = null;
-        
         while (running) {
             String command = scanner.nextLine();
             String[] commandPart = command.split(" ");
-            
-            if(commandPart.length < 1) throw new CommandFailedException("Invalid command");
+
+            if (commandPart.length < 1) throw new CommandFailedException("Invalid command");
             String commandID = "0";
             int tempCommandID = 0;
             try {
@@ -35,43 +31,42 @@ public class App
             } else {
                 commandID = String.valueOf(tempCommandID);
             }
-            
-            boolean indeReturn = false; 
+
+            boolean indeReturn = false;
             try {
                 switch (commandPart[1].toLowerCase()) {
                     case "boardsize":
-                        board = new Board(commandPart[2]);
+                        game.setBoardSize(commandPart[2]);
                         break;
                     case "clear_board":
-                        board.clearBoard();
+                        game.clearBoard();
                         break;
                     case "play":
-                        if(commandPart.length != 4) throw new CommandFailedException("Invalid command");
-                        board.play(commandPart[2], commandPart[3]);
+                        if (commandPart.length != 4) throw new CommandFailedException("Invalid command");
+                        game.play(commandPart[2], commandPart[3]);
                         break;
                     case "genmove":
-                        if(commandPart.length != 3) throw new CommandFailedException("Invalid command");
-                        
-                        System.out.println("=" + commandID + " " + board.genmove(commandPart[2]));
+                        if (commandPart.length != 3) throw new CommandFailedException("Invalid command");
+
+                        System.out.println("=" + commandID + " " + game.genMove(commandPart[2]));
                         indeReturn = true;
                         break;
                     case "showboard":
-                        if(board == null) throw new CommandFailedException("board not initialized");
                         indeReturn = true;
                         System.out.println("=" + commandID);
-                        board.showBoard();
+                        game.showBoard();
                         break;
-                    
+
                     case "quit":
                         running = false;
                         break;
                 }
 
-                if(!indeReturn) System.out.println("=" + commandID + "\n");
+                if (!indeReturn) System.out.println("=" + commandID + "\n");
             } catch (CommandFailedException e) {
-                System.err.println("?"+ commandID + " " + e.getMessage() + "\n");
-            } catch (NullPointerException  e) {
-                System.err.println("?"+ commandID + " board not initialized" + "\n");
+                System.err.println("?" + commandID + " " + e.getMessage() + "\n");
+            } catch (NullPointerException e) {
+                System.err.println("?" + commandID + " board not initialized" + "\n");
             }
         }
         scanner.close();

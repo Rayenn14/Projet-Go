@@ -1,4 +1,6 @@
-package fr.RyoKaST.Pawn;
+package fr.RyoKaST.Gomoku;
+
+import fr.RyoKaST.IHM.PawnType;
 
 public class Pawn {
     

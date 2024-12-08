@@ -1,8 +1,8 @@
-package fr.RyoKaST.board;
+package fr.RyoKaST.Gomoku;
 
-import fr.RyoKaST.player.Player;
-import fr.RyoKaST.Pawn.Pawn;
-import fr.RyoKaST.Pawn.PawnType;
+import fr.RyoKaST.IHM.IBoard;
+import fr.RyoKaST.IHM.PawnType;
+
 import java.util.Random;
 
 
