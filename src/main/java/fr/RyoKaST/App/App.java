@@ -10,7 +10,7 @@ public class App {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
-        IJeu game = new Gomoku(); // Remplacez "Gomoku" par un autre jeu si besoin
+        IJeu game = new Gomoku();
 
         while (running) {
             String command = scanner.nextLine();
