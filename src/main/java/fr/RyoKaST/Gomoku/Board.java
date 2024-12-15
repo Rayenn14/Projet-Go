@@ -1,5 +1,6 @@
 package fr.RyoKaST.Gomoku;
 
+import fr.RyoKaST.Player.Player;
 import fr.RyoKaST.Stable.IBoard;
 import fr.RyoKaST.Stable.PawnType;
 
@@ -36,6 +37,15 @@ public class Board implements IBoard {
     @Override
     public void clearBoard() {
         initialise(boardSize);
+    }
+
+    public boolean isEmpty() {
+        for (Pawn pawn : board) {
+            if (pawn != null) {
+                return false; // Si une case contient un pion, le plateau n'est pas vide
+            }
+        }
+        return true;
     }
 
     @Override
@@ -129,5 +139,26 @@ public class Board implements IBoard {
         }
         boardStringBuilder.append("\n").append(letters).append("\n");
         System.out.println(boardStringBuilder.toString());   
+    }
+
+    public String getCellValue(String cell) {
+        cell = cell.toUpperCase();
+        int x = cell.charAt(0) - 'A'; // Convertir la lettre en index de colonne
+        int y = cell.charAt(1) - '1'; // Convertir le chiffre en index de ligne
+
+        // Vérifier si la position est hors des limites
+        if (x < 0 || x >= boardSize || y < 0 || y >= boardSize) {
+            throw new CommandFailedException("Invalid cell position");
+        }
+
+        int index = x + y * boardSize;
+        Pawn pawn = board[index]; // Récupérer la case correspondante
+
+        // Retourner la valeur de la case
+        if (pawn == null) {
+            return "."; // Case vide
+        } else {
+            return pawn.getPawType().toString(); // Retourne "white" ou "black"
+        }
     }
 }

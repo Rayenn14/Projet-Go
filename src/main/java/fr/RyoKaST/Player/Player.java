@@ -1,4 +1,4 @@
-package fr.RyoKaST.Gomoku;
+package fr.RyoKaST.Player;
 
 import fr.RyoKaST.Stable.IPlayer;
 
