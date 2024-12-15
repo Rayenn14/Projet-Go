@@ -30,7 +30,8 @@ public class App {
                 commandPart = ("0 " + command).split(" ");
 
             } else {
-                commandID = String.valueOf(tempCommandID);
+                commandID = String.valueOf(tempCommandID) + " ";
+
             }
 
             boolean indeReturn = false;
@@ -49,7 +50,7 @@ public class App {
                     case "genmove":
                         if (commandPart.length != 3) throw new CommandFailedException("Invalid command");
 
-                        System.out.println("=" + commandID + " " + game.genMove(commandPart[2]));
+                        System.out.println("=" + commandID + game.genMove(commandPart[2]));
                         indeReturn = true;
                         break;
                     case "showboard":
@@ -65,7 +66,7 @@ public class App {
 
                 if (!indeReturn) System.out.println("=" + commandID + "\n");
             } catch (CommandFailedException e) {
-                System.err.println("?" + commandID + " " + e.getMessage() + "\n");
+                System.err.println("?" + commandID + e.getMessage() + "\n");
             } catch (NullPointerException e) {
                 System.err.println("?" + commandID + " board not initialized" + "\n");
             }

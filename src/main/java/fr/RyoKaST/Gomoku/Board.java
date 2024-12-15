@@ -2,6 +2,7 @@ package fr.RyoKaST.Gomoku;
 
 import fr.RyoKaST.Player.Player;
 import fr.RyoKaST.Stable.IBoard;
+import fr.RyoKaST.Stable.IPlayer;
 import fr.RyoKaST.Stable.PawnType;
 
 import java.util.Random;
@@ -10,11 +11,11 @@ import java.util.Random;
 public class Board implements IBoard {
     int boardSize;
     Pawn[] board;
-    Player white, black;
+    IPlayer white, black;
     Random random;
 
     private void initialise(int size) {
-        if(size <= 6 || size > 15) throw new CommandFailedException("Invalid board size (7-15)");
+        if(size <= 2 || size > 15) throw new CommandFailedException("Invalid board size (3-15)");
         this.boardSize = size;
         this.board = new Pawn[size * size];
         white = new Player(boardSize);
@@ -107,39 +108,40 @@ public class Board implements IBoard {
     public void showBoard() {
         StringBuilder letters = new StringBuilder(" ");
 
-        int maxPad = String.valueOf(boardSize+1).length();
-        
-        for(int pad = maxPad; pad > 1; --pad)
+        int maxPad = String.valueOf(boardSize + 1).length();
+
+        for (int pad = maxPad; pad > 1; --pad)
             letters.append(" ");
 
-        for(int i = 0; i < boardSize; i++) {
-            letters.append(" ").append((char)('A' + i) );
+        for (int i = 0; i < boardSize; i++) {
+            letters.append(" ").append((char)('A' + i));
         }
 
         StringBuilder boardStringBuilder = new StringBuilder(letters);
-        for(int i = 0; i < board.length; ++i) {
-            if(i % boardSize == 0) {
-                String nbline = String.valueOf(i/boardSize + 1);
-                boardStringBuilder.append("\n");
-                for(int pad = maxPad - nbline.length(); pad > 0; --pad)
-                    boardStringBuilder.append(" ");
-                boardStringBuilder.append(nbline);
+
+        for (int row = boardSize - 1; row >= 0; --row) { // Inverse les lignes
+            String rowLabel = String.valueOf(row + 1);
+            boardStringBuilder.append("\n");
+            for (int pad = maxPad - rowLabel.length(); pad > 0; --pad)
+                boardStringBuilder.append(" ");
+            boardStringBuilder.append(rowLabel);
+
+            for (int col = 0; col < boardSize; ++col) {
+                int index = row * boardSize + col;
+                if (board[index] == null) {
+                    boardStringBuilder.append(" .");
+                } else {
+                    boardStringBuilder.append(" ").append(board[index].getPawType().toString().charAt(0));
+                }
             }
 
-            if(board[i] == null) {
-                boardStringBuilder.append(" ").append(".");
-            } else {
-                boardStringBuilder.append(" ").append(board[i].getPawType().toString().charAt(0));
-            }
-
-            if(i % boardSize == boardSize -1) {
-                boardStringBuilder.append(" ").append(i/boardSize + 1);
-            }
-            
+            boardStringBuilder.append(" ").append(row + 1);
         }
+
         boardStringBuilder.append("\n").append(letters).append("\n");
-        System.out.println(boardStringBuilder.toString());   
+        System.out.println(boardStringBuilder.toString());
     }
+
 
     public String getCellValue(String cell) {
         cell = cell.toUpperCase();
