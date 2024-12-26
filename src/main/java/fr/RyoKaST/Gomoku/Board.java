@@ -114,7 +114,7 @@ public class Board implements IBoard {
 
         
         PawnType playerPawn = player.equals("white") ? PawnType.white : PawnType.black;
-        String bestPos = findBestMove(playerPawn);
+        String bestPos = minimax(playerPawn, 2);
         play(player, bestPos);
 
         return bestPos;
@@ -182,6 +182,31 @@ public class Board implements IBoard {
         }
     }
 
+
+    private String minimax(PawnType playerPawn, int depth) {
+        // Cas de base et termine de la récursion
+        if (depth == 1) {
+            return findBestMove(playerPawn);
+        }
+        
+        String moveAtDepthOne = findBestMove(playerPawn);
+        if (moveAtDepthOne == null) return null;
+        
+        // Convertir et jouer le coup pour simuler
+        char col = moveAtDepthOne.charAt(0);
+        char row = moveAtDepthOne.charAt(1);
+        int index = (col - 'A') + (row - '1') * boardSize;
+        board[index] = new Pawn(playerPawn);
+        
+        // Récursion
+        PawnType nextPlayer = (playerPawn == PawnType.white) ? PawnType.black : PawnType.white;
+        minimax(nextPlayer, depth - 1);
+        
+        // apres la recursion, annuler les coups ;)
+        board[index] = null;
+        
+        return moveAtDepthOne;
+    }
 
     private String findBestMove(PawnType playerPawn) {
         int bestScore = Integer.MIN_VALUE;
