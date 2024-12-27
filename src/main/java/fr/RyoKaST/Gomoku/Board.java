@@ -5,9 +5,7 @@ import fr.RyoKaST.Stable.IBoard;
 import fr.RyoKaST.Stable.IPlayer;
 import fr.RyoKaST.Stable.PawnType;
 
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 
 public class Board implements IBoard {
@@ -85,42 +83,8 @@ public class Board implements IBoard {
         return board[pos] == null;
     }
 
-    @Override
-    public String genmove(String player) {
-        /*
-        int x = random.nextInt(boardSize);
-        int y = random.nextInt(boardSize);
-        int index = x + y * boardSize;
-        int initx = x; 
-        while(board[index] != null) {
-            if(x == initx) {
-                y = y+1%boardSize;
-            }
-            x = x+1%boardSize;
-            index = x + y * boardSize;
-        }
 
-        if(player.equalsIgnoreCase("white")) {
-            this.play("white", index);
-            //System.out.println(evaluateBoard(PawnType.white));
-        } else {
-            this.play("black", index);
-            //System.out.println(evaluateBoard(PawnType.black));
-            
-        }
 
-        return (char)(x + 'A') + "" + (y + 1);
-        */
-
-        
-        PawnType playerPawn = player.equals("white") ? PawnType.white : PawnType.black;
-        String bestPos = minimax(playerPawn, 2);
-        play(player, bestPos);
-
-        return bestPos;
-        
-        
-    }
 
     @Override
     public void showBoard() {
@@ -206,6 +170,29 @@ public class Board implements IBoard {
         board[index] = null;
         
         return moveAtDepthOne;
+    }
+
+    @Override
+    public String genmove(String player) {
+        // Créer une liste des positions vide
+        List<Integer> emptyPositions = new ArrayList<>();
+        for (int i = 0; i < board.length; i++) {
+            if (board[i] == null) {
+                emptyPositions.add(i);
+            }
+        }
+        // Choisi une position aléatoire parmi les cases vides
+        if (emptyPositions.isEmpty()) {
+            throw new CommandFailedException("No valid moves available");
+        }
+        int randomIndex = random.nextInt(emptyPositions.size());
+        int chosenIndex = emptyPositions.get(randomIndex);
+        // Convertir l'index en position
+        int col = chosenIndex % boardSize;
+        int row = chosenIndex / boardSize;
+        String chosenPosition = (char) ('A' + col) + String.valueOf(row + 1);
+        play(player, chosenIndex);
+        return chosenPosition;
     }
 
     private String findBestMove(PawnType playerPawn) {
