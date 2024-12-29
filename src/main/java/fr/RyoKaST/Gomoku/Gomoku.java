@@ -94,75 +94,48 @@ public class Gomoku implements IJeu {
 
     @Override
     public int evaluateBoard(PawnType playerPawn) {
-        int score = 0;
-        int boardSize = board.getBoardSize();
+        int score = 0, boardSize = board.getBoardSize();
+        int[][] directions = {{1, 0}, {0, 1}, {1, 1}, {1, -1}};
+        Set<Integer> evaluated = new HashSet<>();
 
-        int[][] directions = {{1, 0},   /* horizontal  */{0, 1},   /* vertical  */{1, 1},   /* diagonal descending  */{1, -1}   /* diagonal ascending  */};
-
-        // Utiliser un ensemble pour tracker les positions déjà évaluées
-        Set<Integer> evaluatedPositions = new HashSet<>();
-
-        // Traverse the board
         for (int row = 0; row < boardSize; row++) {
             for (int col = 0; col < boardSize; col++) {
                 int index = row * boardSize + col;
-                
-                if (evaluatedPositions.contains(index)) continue;
-                
-                if (board.getCase(index) == null || board.getCase(index).getPawType() != playerPawn) continue;
-                
-                // Marquer cette position comme évaluée
-                evaluatedPositions.add(index);
-                
-                for (int[] direction : directions) {
-                    int alignmentScore = calculateDirectionalScore(row, col, direction[0], direction[1], playerPawn);
-                    score += alignmentScore;
-                }
+
+                if (!evaluated.add(index) || board.getCase(index) == null
+                        || board.getCase(index).getPawType() != playerPawn) continue;
+
+                for (int[] dir : directions)
+                    score += calculateDirectionalScore(row, col, dir[0], dir[1], playerPawn);
             }
         }
 
         return score;
     }
-    
-    private int calculateDirectionalScore(int startRow, int startCol, int rowDir, int colDir, PawnType playerPawn) {
-        int totalScore = 0;
-        int consecutivePawns = 1; // Commencer à 1 pour inclure le pion initial
-        int openEnds = 0;
-        int boardSize = board.getBoardSize();
 
-        int[][] searchDirections = {{-1, -1}, {1, 1}};
-        
-        for (int[] searchDir : searchDirections) {
-            int checkRow = startRow;
-            int checkCol = startCol;
-            int stepCount = 0;
-            
-            while (stepCount < 4) {
-                checkRow += searchDir[0] * rowDir;
-                checkCol += searchDir[0] * colDir;
-                stepCount++;
-                
-                if (checkRow < 0 || checkRow >= boardSize ||  checkCol < 0 || checkCol >= boardSize)  break;
-                
+    private int calculateDirectionalScore(int startRow, int startCol, int rowDir, int colDir, PawnType playerPawn) {
+        int consecutivePawns = 1, openEnds = 0, boardSize = board.getBoardSize();
+
+        for (int dir = -1; dir <= 1; dir += 2) { // Parcourt les deux directions
+            int checkRow = startRow, checkCol = startCol, steps = 0;
+
+            while (++steps < 4) {
+                checkRow += dir * rowDir;
+                checkCol += dir * colDir;
+
+                if (checkRow < 0 || checkCol < 0 || checkRow >= boardSize || checkCol >= boardSize) break;
+
                 int index = checkRow * boardSize + checkCol;
-                
-                // Si la case est vide, c'est un bout ouvert
                 if (board.getCase(index) == null) {
                     openEnds++;
                     break;
-                }
-                
-                // Si le pion est du même type, on continue
-                if (board.getCase(index).getPawType() == playerPawn) {
+                } else if (board.getCase(index).getPawType() == playerPawn) {
                     consecutivePawns++;
-                } else {
-                    // Pion adverse bloque la séquence
-                    break;
-                }
+                } else break;
             }
         }
-        
-        return totalScoreLogSwitch(totalScore, consecutivePawns, openEnds);
+
+        return totalScoreLogSwitch(0, consecutivePawns, openEnds);
     }
 
     private int totalScoreLogSwitch(int totalScore, int consecutivePawns, int openEnds) {
