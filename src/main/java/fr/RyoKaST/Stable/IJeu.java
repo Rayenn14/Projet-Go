@@ -10,4 +10,8 @@ public interface IJeu {
     String genMove(String player);
 
     void showBoard();
+
+    IBoard getBoard();
+
+    int evaluateBoard(PawnType playerPawn);
 }

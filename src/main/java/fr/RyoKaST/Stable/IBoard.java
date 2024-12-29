@@ -1,11 +1,19 @@
 package fr.RyoKaST.Stable;
 
+import fr.RyoKaST.Gomoku.Pawn;
+
 public interface IBoard {
     void clearBoard();
 
-    void play(String player, String pos);
-
-    String genmove(String player);
+    void play(PawnType pawnType, int pos);
 
     void showBoard();
+
+    int getBoardSize();
+
+    Pawn getCase(int pos);
+
+    void setCase(int pos, Pawn pawn);
+
+    Pawn[] getBoard();
 }
