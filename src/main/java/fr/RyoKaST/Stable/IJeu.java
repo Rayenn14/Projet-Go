@@ -14,4 +14,6 @@ public interface IJeu {
     IBoard getBoard();
 
     int evaluateBoard(PawnType playerPawn);
+
+    boolean gameFinish();
 }

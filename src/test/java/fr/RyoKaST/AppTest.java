@@ -1,6 +1,5 @@
 package fr.RyoKaST;
 
-import fr.RyoKaST.Gomoku.Board;
 import fr.RyoKaST.Gomoku.Gomoku;
 import fr.RyoKaST.Stable.IJeu;
 import org.junit.jupiter.api.Test;

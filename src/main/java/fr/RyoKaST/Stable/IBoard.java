@@ -16,4 +16,6 @@ public interface IBoard {
     void setCase(int pos, Pawn pawn);
 
     Pawn[] getBoard();
+
+    boolean gameFinish();
 }

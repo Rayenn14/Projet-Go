@@ -16,40 +16,42 @@ public class App {
             String command = scanner.nextLine();
             String[] commandPart = command.split(" ");
 
-            if (commandPart.length < 1) throw new CommandFailedException("Invalid command");
+            // Si la commande est vide, ignorer.
+            if (commandPart.length < 1) continue;
+
             String commandID = "0";
             int tempCommandID = 0;
+
+            // Extraire l'ID de commande si possible
             try {
                 tempCommandID = Integer.parseInt(commandPart[0]);
             } catch (Exception e) {
                 tempCommandID = -1;
             }
-
             if (tempCommandID < 0) {
                 commandID = "";
                 commandPart = ("0 " + command).split(" ");
-
             } else {
                 commandID = String.valueOf(tempCommandID) + " ";
-
             }
 
+            // Gérer les commandes
             boolean indeReturn = false;
             try {
                 switch (commandPart[1].toLowerCase()) {
                     case "boardsize":
+                        if (commandPart.length != 3) throw new CommandFailedException("Invalid boardsize command");
                         game.setBoardSize(commandPart[2]);
                         break;
                     case "clear_board":
                         game.clearBoard();
                         break;
                     case "play":
-                        if (commandPart.length != 4) throw new CommandFailedException("Invalid command");
+                        if (commandPart.length != 4) throw new CommandFailedException("Invalid play command");
                         game.play(commandPart[2], commandPart[3]);
                         break;
                     case "genmove":
-                        if (commandPart.length != 3) throw new CommandFailedException("Invalid command");
-
+                        if (commandPart.length != 3) throw new CommandFailedException("Invalid genmove command");
                         System.out.println("=" + commandID + game.genMove(commandPart[2]));
                         indeReturn = true;
                         break;
@@ -58,10 +60,17 @@ public class App {
                         System.out.println("=" + commandID);
                         System.out.println(game.showBoard());
                         break;
-
                     case "quit":
                         running = false;
                         break;
+                    default:
+                        throw new CommandFailedException("Unknown command: " + commandPart[1]);
+                }
+
+                // Vérification si le jeu est terminé après chaque coup
+                if (game.gameFinish()) {
+                    System.out.println("Partie terminée");
+                    running = false;  // Terminer le jeu
                 }
 
                 if (!indeReturn) System.out.println("=" + commandID + "\n");

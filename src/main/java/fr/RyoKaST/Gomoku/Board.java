@@ -134,4 +134,69 @@ public class Board implements IBoard {
             throw new CommandFailedException("Illegal move");
         }
     }
+
+    public boolean gameFinish() {
+        int boardSize = getBoardSize();
+
+        // Définir le nombre minimum de pions alignés requis en fonction de la taille du plateau
+        int requiredPawns = (boardSize <= 3) ? 3 : (boardSize == 4 ? 4 : 5);
+
+        // Vérifier les lignes, les colonnes, et les diagonales
+        for (int row = 0; row < boardSize; row++) {
+            for (int col = 0; col < boardSize; col++) {
+                if (getCase(row * boardSize + col) != null) {
+                    // Vérifier si nous avons assez de pions alignés à partir de (row, col)
+                    if (checkAlignment(row, col, requiredPawns)) {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+    private boolean checkAlignment(int row, int col, int requiredPawns) {
+        int boardSize = getBoardSize();
+        PawnType currentPawn = getCase(row * boardSize + col).getPawType();
+
+        // Directions : gauche -> droite, haut -> bas, diagonale, anti-diagonale
+        int[][] directions = {{1, 0}, {0, 1}, {1, 1}, {1, -1}};
+
+        // Vérification dans les 4 directions possibles
+        for (int[] dir : directions) {
+            int consecutivePawns = 1;  // Comptage du pion actuel
+
+            // Vérification dans les deux sens (positif et négatif)
+            for (int i = -1; i <= 1; i += 2) {
+                int checkRow = row, checkCol = col;
+
+                for (int steps = 1; steps < requiredPawns; steps++) {
+                    checkRow += dir[0] * i;
+                    checkCol += dir[1] * i;
+
+                    // Vérifier les limites du plateau
+                    if (checkRow < 0 || checkCol < 0 || checkRow >= boardSize || checkCol >= boardSize) {
+                        break;
+                    }
+
+                    // Vérifier si le pion est du même type
+                    if (getCase(checkRow * boardSize + checkCol) != null
+                            && getCase(checkRow * boardSize + checkCol).getPawType() == currentPawn) {
+                        consecutivePawns++;
+                    } else {
+                        break;
+                    }
+                }
+            }
+
+            // Si le nombre de pions alignés est suffisant, retourne vrai
+            if (consecutivePawns >= requiredPawns) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 }

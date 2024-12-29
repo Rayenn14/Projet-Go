@@ -156,4 +156,11 @@ public class Gomoku implements IJeu {
         
         return totalScore;
     }
+
+    public boolean gameFinish() {
+        return board.gameFinish();
+    }
+
+
+
 }
