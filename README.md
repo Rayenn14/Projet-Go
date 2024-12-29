@@ -19,7 +19,8 @@ Ce que nous avons testé :
 - Initialisation du plateau
 - La methode genmove
 - Toutes les possibilités de victoires des deux joueurs et dans tous les sens 
-- Les fonctionnalités de base du plateau de jeu (lecture/écriture des cases).
+- Les fonctionnalités de base du plateau de jeu (lecture/écriture des cases)
+
 Résultat : Tous les tests passent, démontrant que les fonctionnalités principales sont stables et fonctionnelles.
 
 BILAN : 
