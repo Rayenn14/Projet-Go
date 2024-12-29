@@ -4,52 +4,64 @@ import fr.RyoKaST.Gomoku.Pawn;
 import fr.RyoKaST.Stable.PawnType;
 
 public class BotMiniMax extends Abot{
- 
+    
     public BotMiniMax() {
         super();
     }
 
     @Override
     protected int genmove(PawnType playerPawn, int depth) {
-
+        // ne marche plus si paser en chiffre a cause du return Null qui n'existe pas en int
+        // peut etre en Integer ca marche mais pas sure et pas le temps on y a passer plus de 3h
          if (depth == 1) {
+            String posString = findBestMove(playerPawn);
+            int x = posString.charAt(0) - 'A';
+            int y = posString.charAt(1) - '1';
+            int index = x + y * board.getBoardSize();
+            return index;
+        }
+
+
+        String posString = minimax(playerPawn, depth);
+        int x = posString.charAt(0) - 'A';
+        int y = posString.charAt(1) - '1';
+        int index = x + y * board.getBoardSize();
+        return index;
+        
+    }
+
+    private String minimax(PawnType playerPawn, int depth) {
+        // Cas de base et termine de la récursion
+        if (depth == 1) {
             return findBestMove(playerPawn);
         }
-
-
-
-        return minimaxRec(playerPawn, depth);
         
-    }
+        int boardSize = board.getBoardSize();
 
-    private int minimaxRec(PawnType playerPawn, int depth) {
+        String moveAtDepthOne = findBestMove(playerPawn);
+        if (moveAtDepthOne == null) return null;
         
-        int moveAtDepthOne = findBestMove(playerPawn);
-        
-        if(moveAtDepthOne == -1) {
-            return 0;
-        }
-
         // Convertir et jouer le coup pour simuler
-
-        int index = moveAtDepthOne;
+        char col = moveAtDepthOne.charAt(0);
+        char row = moveAtDepthOne.charAt(1);
+        int index = (col - 'A') + (row - '1') * boardSize;
         board.setCase(index, new Pawn(playerPawn));
-
+        // board[index] = new Pawn(playerPawn);
+        
         // Récursion
         PawnType nextPlayer = (playerPawn == PawnType.white) ? PawnType.black : PawnType.white;
-        int bestMove = minimaxRec(nextPlayer, depth - 1);
-
+        minimax(nextPlayer, depth - 1);
+        
         // apres la recursion, annuler les coups ;)
         board.setCase(index, null);
-
+        // board[index] = null;
+        
         return moveAtDepthOne;
     }
-
-
-
-    private int findBestMove(PawnType playerPawn) {
+    private String findBestMove(PawnType playerPawn) {
+        int boardSize = board.getBoardSize();
         int bestScore = Integer.MIN_VALUE;
-        int bestPos = -1;
+        String bestPos = null;
     
         // Vérifier les pions déjà présents sur le plateau
         boolean boardIsEmpty = true;
@@ -59,25 +71,26 @@ public class BotMiniMax extends Abot{
                 break;
             }
         }
-
-        int boardSize = board.getBoardSize();
     
         // Si le plateau est vide, jouer au centre plus de possibilité
         if (boardIsEmpty) {
             int centerRow = boardSize / 2;
             int centerCol = boardSize / 2;
-            return centerCol * boardSize + (centerRow + 1);
+            return String.valueOf((char)('A' + centerCol)) + (centerRow + 1);
         }
     
         for (int row = 0; row < boardSize; row++) {
             for (int col = 0; col < boardSize; col++) {
                 int index = row * boardSize + col;
     
-                if (board.getCase(index) == null) {
+                if ( board.getCase(index) == null
+                    // board[index] == null
+                    ) {
                     if (!hasAdjacentPawn(row, col)) continue;
     
                     // Simuler le placement du pion
                     board.setCase(index, new Pawn(playerPawn));
+                    // board[index] = new Pawn(playerPawn);
     
                     int score = jeu.evaluateBoard(playerPawn);
     
@@ -89,11 +102,12 @@ public class BotMiniMax extends Abot{
                     if (score > bestScore) {
                         bestScore = score;
                         // Convertir les coordonnées en notation de position (ex: A1, B2)
-                        bestPos = index;
+                        bestPos = String.valueOf((char)('A' + col)) + (row + 1);
                     }
     
                     // Annuler le placement du pion
                     board.setCase(index, null);
+                    // board[index] = null;
                 }
             }
         }
