@@ -11,7 +11,7 @@ public class BotMiniMax extends Abot{
 
     @Override
     protected int genmove(PawnType playerPawn, int depth) {
-        // ne marche plus si paser en chiffre a cause du return Null qui n'existe pas en int
+        // ne marche plus si passer en chiffre à cause du return Null qui n'existe pas en int
         // peut etre en Integer ca marche mais pas sure et pas le temps on y a passer plus de 3h
          if (depth == 1) {
             String posString = findBestMove(playerPawn);
@@ -20,7 +20,6 @@ public class BotMiniMax extends Abot{
             int index = x + y * board.getBoardSize();
             return index;
         }
-
 
         String posString = minimax(playerPawn, depth);
         int x = posString.charAt(0) - 'A';
@@ -71,8 +70,7 @@ public class BotMiniMax extends Abot{
                 break;
             }
         }
-    
-        // Si le plateau est vide, jouer au centre plus de possibilité
+
         if (boardIsEmpty) {
             int centerRow = boardSize / 2;
             int centerCol = boardSize / 2;
@@ -116,7 +114,6 @@ public class BotMiniMax extends Abot{
     }
 
 
-    // Méthode pour vérifier s'il y a des pions adjacents
     private boolean hasAdjacentPawn(int row, int col) {
         int[][] directions = {
             {-1, 0}, {1, 0}, {0, -1}, {0, 1},
@@ -141,8 +138,7 @@ public class BotMiniMax extends Abot{
     
         return false;
     }
-    
-    // Méthode pour évaluer le meilleur coup de l'adversaire
+
     private int evaluateOpponentBestMove(PawnType playerPawn) {
         PawnType opponentPawn = (playerPawn == PawnType.white) ? PawnType.black : PawnType.white;
         int opponentBestScore = Integer.MIN_VALUE;
@@ -165,7 +161,6 @@ public class BotMiniMax extends Abot{
                 }
             }
         }
-    
         return opponentBestScore;
     }
 }

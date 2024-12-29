@@ -19,7 +19,6 @@ public class Player implements IPlayer {
         this.pawnType = pawnType;
         pawnListSize = 0;
     }
-    
 
     @Override
     public void play(IJeu jeu, int pos) {

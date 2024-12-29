@@ -19,7 +19,6 @@ public class BotNaif extends Abot {
                 int index = row * board.getBoardSize() + col;
                 if (board.getCase(index) == null) {
                     return index;
-                    // return String.valueOf((char) ('A' + col)) + (row + 1); // Format: A1, B2, etc.
                 }
             }
         }

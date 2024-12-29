@@ -16,13 +16,11 @@ public class App {
             String command = scanner.nextLine();
             String[] commandPart = command.split(" ");
 
-            // Si la commande est vide, ignorer.
             if (commandPart.length < 1) continue;
 
             String commandID = "0";
             int tempCommandID = 0;
 
-            // Extraire l'ID de commande si possible
             try {
                 tempCommandID = Integer.parseInt(commandPart[0]);
             } catch (Exception e) {
@@ -35,7 +33,6 @@ public class App {
                 commandID = String.valueOf(tempCommandID) + " ";
             }
 
-            // Gérer les commandes
             boolean indeReturn = false;
             try {
                 switch (commandPart[1].toLowerCase()) {

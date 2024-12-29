@@ -19,7 +19,6 @@ public class Gomoku implements IJeu {
     @Override
     public void setBoardSize(String boardSizeInput) {
         board = new Board(boardSizeInput);
-
         white = new Player(board.getBoardSize(), PawnType.white);
         black = new Player(board.getBoardSize(), PawnType.black);
         bot = new BotMiniMax();
@@ -37,13 +36,10 @@ public class Gomoku implements IJeu {
         PawnType playerPawn = player.equals("white") ? PawnType.white : PawnType.black;
         int bestPos = bot.genmove(this, playerPawn, 2);
         play(player, bestPos);
-
         int boardSize = board.getBoardSize();
-
         int col = bestPos % boardSize;
         int row = bestPos / boardSize;
         String chosenPosition = (char) ('A' + col) + String.valueOf(row + 1);
-
         return chosenPosition;
     }
 
@@ -60,14 +56,10 @@ public class Gomoku implements IJeu {
         pos = pos.toUpperCase();
         int x = pos.charAt(0) - 'A'; // lettre vers int table ascii
         int y = pos.charAt(1) - '1'; // char vers int table ascii aussi on considere que les chiffres commencent a 1
-        
         int boardSize = board.getBoardSize();
-
         if(x < 0 || x >= boardSize || y < 0 || y >= boardSize) throw new CommandFailedException("illegal move");
-
         int index = x + y * boardSize;
         play(player, index);
-        
     }
 
     private void play(String player, int index) {
@@ -77,7 +69,6 @@ public class Gomoku implements IJeu {
             } else {
                 black.play(this, index);
             }
-            
         } else {
             throw new CommandFailedException("illegal move");
         }
@@ -109,16 +100,13 @@ public class Gomoku implements IJeu {
                     score += calculateDirectionalScore(row, col, dir[0], dir[1], playerPawn);
             }
         }
-
         return score;
     }
 
     private int calculateDirectionalScore(int startRow, int startCol, int rowDir, int colDir, PawnType playerPawn) {
         int consecutivePawns = 1, openEnds = 0, boardSize = board.getBoardSize();
-
         for (int dir = -1; dir <= 1; dir += 2) { // Parcourt les deux directions
             int checkRow = startRow, checkCol = startCol, steps = 0;
-
             while (++steps < 4) {
                 checkRow += dir * rowDir;
                 checkCol += dir * colDir;
@@ -137,7 +125,6 @@ public class Gomoku implements IJeu {
 
         return totalScoreLogSwitch(0, consecutivePawns, openEnds);
     }
-
     private int totalScoreLogSwitch(int totalScore, int consecutivePawns, int openEnds) {
         switch (consecutivePawns) {
             case 5:  // Victoire
@@ -153,10 +140,8 @@ public class Gomoku implements IJeu {
                 totalScore += (openEnds == 2) ? 50 : 10;
                 break;
         }
-        
         return totalScore;
     }
-
     public boolean gameFinish() {
         return board.gameFinish();
     }
