@@ -15,6 +15,7 @@ public class Gomoku implements IJeu {
     private IBoard board;
     private IPlayer white, black;
     private Ibot bot;
+    private static final int GENMOVE_DEPTH = 2; 
 
     @Override
     public void setBoardSize(String boardSizeInput) {
@@ -34,7 +35,7 @@ public class Gomoku implements IJeu {
     public String genMove(String player) {
         if (board == null) throw new CommandFailedException("board not initialized");
         PawnType playerPawn = player.equals("white") ? PawnType.white : PawnType.black;
-        int bestPos = bot.genmove(this, playerPawn, 2);
+        int bestPos = bot.genmove(this, playerPawn, GENMOVE_DEPTH);
         play(player, bestPos);
         int boardSize = board.getBoardSize();
         int col = bestPos % boardSize;
