@@ -1,13 +1,10 @@
 package fr.RyoKaST.Gomoku;
 
-import fr.RyoKaST.Player.Player;
 import fr.RyoKaST.Stable.IBoard;
-import fr.RyoKaST.Stable.IPlayer;
+
 import fr.RyoKaST.Stable.PawnType;
 
-import java.util.HashSet;
 import java.util.Random;
-import java.util.Set;
 
 
 public class Board implements IBoard {
