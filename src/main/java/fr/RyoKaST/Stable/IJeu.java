@@ -8,4 +8,6 @@ public interface IJeu {
     void play(String player, String pos);
 
     void showBoard();
+
+    String genMove(String s);
 }

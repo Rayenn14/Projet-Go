@@ -8,4 +8,6 @@ public interface IBoard {
     void play(String player, int pos);
 
     void showBoard();
+
+    String genmove(String player);
 }

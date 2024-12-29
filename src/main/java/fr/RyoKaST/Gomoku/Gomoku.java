@@ -18,6 +18,11 @@ public class Gomoku implements IJeu {
         board.clearBoard();
     }
 
+    @Override
+    public String genMove(String player) {
+        if (board == null) throw new CommandFailedException("board not initialized");
+        return board.genmove(player);
+    }
 
     @Override
     public void play(String player, String pos) {
