@@ -7,7 +7,7 @@ public interface IBoard {
 
     void play(PawnType pawnType, int pos);
 
-    void showBoard();
+    String showBoard();
 
     int getBoardSize();
 

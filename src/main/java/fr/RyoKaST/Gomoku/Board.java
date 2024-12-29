@@ -47,7 +47,7 @@ public class Board implements IBoard {
     }
 
     @Override
-    public void showBoard() {
+    public String showBoard() {
         StringBuilder letters = new StringBuilder(" ");
 
         int maxPad = String.valueOf(boardSize + 1).length();
@@ -81,7 +81,7 @@ public class Board implements IBoard {
         }
 
         boardStringBuilder.append("\n").append(letters).append("\n");
-        System.out.println(boardStringBuilder.toString());
+        return boardStringBuilder.toString();
     }
 
 

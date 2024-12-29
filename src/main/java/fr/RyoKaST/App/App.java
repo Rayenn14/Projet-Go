@@ -56,7 +56,7 @@ public class App {
                     case "showboard":
                         indeReturn = true;
                         System.out.println("=" + commandID);
-                        game.showBoard();
+                        System.out.println(game.showBoard());
                         break;
 
                     case "quit":

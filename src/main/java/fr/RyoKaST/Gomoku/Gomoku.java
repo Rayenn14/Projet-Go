@@ -48,9 +48,9 @@ public class Gomoku implements IJeu {
     }
 
     @Override
-    public void showBoard() {
+    public String showBoard() {
         if (board == null) throw new CommandFailedException("board not initialized");
-        board.showBoard();
+        return board.showBoard();
     }
 
 

@@ -9,7 +9,7 @@ public interface IJeu {
 
     String genMove(String player);
 
-    void showBoard();
+    String showBoard();
 
     IBoard getBoard();
 
