@@ -1,24 +1,30 @@
 package fr.RyoKaST.Player;
 
+import fr.RyoKaST.Gomoku.Board;
 import fr.RyoKaST.Stable.IPlayer;
-
-import java.util.Set;
-import java.util.TreeSet;
+import fr.RyoKaST.Stable.PawnType;
 
 public class Player implements IPlayer {
-    Set<Integer> pawnList;
-    int pawnListSize;
-    int boardSize;
-    
-    public Player(int boardSize) {
-        this.boardSize = boardSize;
-        pawnList = new TreeSet<>();
-        pawnListSize = 0;
+    private Board board;
+    PawnType playerPawn;
+
+
+    public Player(Board b, PawnType p) {
+        this.board = b;
+        this.playerPawn = p;
     }
-    
+
+    public String getColor(){
+        return playerPawn == PawnType.white ? "white" : "black";
+    }
 
     @Override
     public void play(int pos) {
-        pawnList.add(pos);
+        board.play(getColor(), pos);
+    }
+
+    @Override
+    public void play() {
+
     }
 }

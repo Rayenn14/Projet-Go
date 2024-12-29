@@ -5,7 +5,7 @@ public interface IBoard {
 
     void play(String player, String pos);
 
-    String genmove(String player);
+    void play(String player, int pos);
 
     void showBoard();
 }

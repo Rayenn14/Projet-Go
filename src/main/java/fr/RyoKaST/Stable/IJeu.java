@@ -5,9 +5,7 @@ public interface IJeu {
 
     void clearBoard();
 
-    void play(String player, String position);
-
-    String genMove(String player);
+    void play(String player, String pos);
 
     void showBoard();
 }
