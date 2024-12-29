@@ -73,9 +73,9 @@ public class Gomoku implements IJeu {
     private void play(String player, int index) {
         if(canPlay(player, index)) {
             if(player.equalsIgnoreCase("white")) {
-                black.play(this, index);
-            } else {
                 white.play(this, index);
+            } else {
+                black.play(this, index);
             }
             
         } else {
