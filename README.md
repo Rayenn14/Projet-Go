@@ -1,28 +1,6 @@
 206 STAVROPOULOS Lukas BOUZIDI Rayen LIN Leo GILLET Mathias
 # Projet-Go
 
-## NOTE 12
-
-## CORRECTION
-Que veut dire "L'implémentation actuelle de l'algorithme miniMax reste encore très superficielle." ?
-
-Je ne vois à quoi set IBoard.
-
-Pourquoi deux interfaces pour les joueurs et les bots ?
-
-Il aurait fallu tester minimax.
-
-la commande n'est pas setBoardSize mais boardsize (dans les fonctionalités qui marchent)
-
-J'avais demandé un mode Partie qui évite de saisir des coups
-
-Il est aberrant que Gomoku (et non pas Player comme dit dans le README) instancie les joueurs !
-
-A la fin de la partie, le vainqueur n'est pas annoncé.
-
-J'ai mius la profondeur à 7 mais minimax joue mal malgré tout sur un 3x3 !
-
-
 Les fonctionnalités qui marchent :
 - Les trois types de joueurs : Humain, BotNaif, et BotMiniMax (profondeur?)
 - play, setBoardSize, clearBoard, genMove
