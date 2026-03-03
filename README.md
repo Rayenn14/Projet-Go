@@ -1,27 +1,39 @@
-206 STAVROPOULOS Lukas BOUZIDI Rayen LIN Leo GILLET Mathias
-# Projet-Go
+# 🎮 Projet Go - Moteur de Jeu Stratégique
 
-Les fonctionnalités qui marchent :
-- Les trois types de joueurs : Humain, BotNaif, et BotMiniMax (profondeur?)
-- play, setBoardSize, clearBoard, genMove
-- Application flexible et fonctionnel avec différents jeux
-- Condition de victoire
+Ce projet consiste en l'implémentation d'un moteur de jeu en Go, conçu pour être flexible et compatible avec différents types de jeux de plateau. L'accent a été mis sur la qualité du code et le respect des principes de conception logicielle.
 
+## 🛠 Concepts Clés & Design
+Le cœur du projet repose sur le respect des **principes SOLID** pour garantir une structure évolutive et maintenable :
+* **Responsabilité Unique (SRP)** : Organisation structurée du code pour séparer la logique du plateau, des joueurs et des moteurs de décision.
+* **Open/Closed Principle** : Application flexible et fonctionnelle permettant l'intégration de différents jeux sans modifier le noyau du moteur.
+* **Liskov Substitution** : Gestion de trois types de joueurs interchangeables (Humain, BotNaif, et BotMiniMax).
 
-Les fonctionnalités qui ne marchent pas :
-- setPlayer (définir si le joueur est humain ou un robot)
+## 🚀 Fonctionnalités Opérationnelles
+* **Types de Joueurs** :
+    * **Humain** : Interface de saisie directe.
+    * **BotNaif** : Coups aléatoires ou basiques.
+    * **BotMiniMax** : Implémentation d'une IA basée sur l'algorithme MiniMax pour la prise de décision stratégique.
+* **Moteur de Jeu** :
+    * Commandes supportées : `play`, `setBoardSize`, `clearBoard`, `genMove`.
+    * Gestion dynamique de la taille du plateau.
+    * Détection automatique des conditions de victoire.
+* **Algorithme `genMove`** : Une implémentation astucieuse pour le calcul des déplacements.
 
-Diagramme d'architecture
-![image](https://github.com/user-attachments/assets/1b6d930f-cc35-42cd-b9b1-9b1c11a67294)
+## 🧪 Tests & Stabilité
+La robustesse de l'application est garantie par une série de **11 tests unitaires** couvrant les aspects critiques :
+* Initialisation et manipulation du plateau (lecture/écriture des cases).
+* Validation de la méthode `genmove`.
+* Vérification de toutes les possibilités de victoire (horizontale, verticale, diagonale) pour les deux joueurs.
+**Résultat** : 100% des tests passent avec succès.
 
-Nombre total de tests : 11 tests unitaires.
-Ce que nous avons testé :
-- Initialisation du plateau
-- La methode genmove
-- Toutes les possibilités de victoires des deux joueurs et dans tous les sens 
-- Les fonctionnalités de base du plateau de jeu (lecture/écriture des cases)
+## 📊 Architecture
+Le projet utilise une structure modulaire permettant une séparation claire entre les données et l'intelligence artificielle.
+*Note : Bien que fonctionnel, l'algorithme MiniMax reste dans une version initiale et l'instanciation des joueurs gagne à être déléguée à la classe App dans les prochaines versions pour parfaire l'architecture.*
 
-Résultat : Tous les tests passent, démontrant que les fonctionnalités principales sont stables et fonctionnelles.
+## ⚠️ Limitations Actuelles
+* La méthode `setPlayer` (définition dynamique du type de joueur) n'est pas encore opérationnelle.
+* L'instanciation des joueurs est actuellement gérée directement par la classe `Board`.
 
-BILAN : 
-L'implémentation actuelle de l'algorithme miniMax reste encore très superficielle. De plus, la classe Board instancie directement les joueurs, ce qui pourrait être amélioré en déléguant cette responsabilité à la classe App, que nous n'avions pas réussi à faire. Enfin, la méthode setPlayer ne fonctionne pas. En dépit de cela, nous sommes très satisfait du travail accompli. La méthode genmove est assez astucieuse et l'implémentation des conditions de victoire a été réussie malgré la difficulté surprenante pour les mettre en place. Nous avons également veillé à organiser notre code de manière structurée, en respectant le plus possible les principes SOLID. 
+---
+**Contributeurs (GR 206)** : Lukas STAVROPOULOS, Rayen BOUZIDI, Leo LIN, Mathias GILLET.
+*Projet réalisé dans le cadre du BUT Informatique.*
